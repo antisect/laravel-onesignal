@@ -15,7 +15,6 @@ class OneSignalClient
     private $headers;
     private $appId;
     private $restApiKey;
-    private $userAuthKey;
     private $additionalParams;
 
     /**
@@ -51,11 +50,10 @@ class OneSignalClient
         return $this;
     }
 
-    public function __construct($appId, $restApiKey, $userAuthKey)
+    public function __construct($appId, $restApiKey)
     {
         $this->appId = $appId;
         $this->restApiKey = $restApiKey;
-        $this->userAuthKey = $userAuthKey;
 
         $this->client = new Client();
         $this->headers = ['headers' => []];
@@ -107,7 +105,7 @@ class OneSignalClient
             $params['data'] = $data;
         }
 
-        if (isset($buttons)) {
+        if (isset($button)) {
             $params['buttons'] = $buttons;
         }
 
@@ -137,7 +135,7 @@ class OneSignalClient
             $params['data'] = $data;
         }
 
-        if (isset($buttons)) {
+        if (isset($button)) {
             $params['buttons'] = $buttons;
         }
 
@@ -167,7 +165,7 @@ class OneSignalClient
             $params['data'] = $data;
         }
 
-        if (isset($buttons)) {
+        if (isset($button)) {
             $params['buttons'] = $buttons;
         }
 
@@ -177,6 +175,40 @@ class OneSignalClient
         
         $this->sendNotificationCustom($params);
     }
+
+//----------------------------------------------------------------------------------------------------
+
+    public function sendNotificationToTag($message, $tag, $url = null, $data = null, $buttons = null, $schedule = null) {
+        $contents = array(
+            "en" => $message
+        );
+
+        $params = array(
+            'app_id' => $this->appId,
+            'contents' => $contents,
+            'filters' => $tag
+        );
+
+        if (isset($url)) {
+            $params['url'] = $url;
+        }
+
+        if (isset($data)) {
+            $params['data'] = $data;
+        }
+
+        if (isset($button)) {
+            $params['buttons'] = $buttons;
+        }
+
+        if(isset($schedule)){
+            $params['send_after'] = $schedule;
+        }
+        
+        $this->sendNotificationCustom($params);
+    }
+
+//-------------------------------------------------------------------------------------
 
     /**
      * Send a notification with custom parameters defined in
