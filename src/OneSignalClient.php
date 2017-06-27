@@ -33,7 +33,7 @@ class OneSignalClient
      * @param bool $on
      * @return $this
      */
-    public function async($on = true)
+    public function async($on = false)
     {
         $this->requestAsync = $on;
         return $this;
