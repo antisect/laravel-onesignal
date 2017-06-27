@@ -208,36 +208,6 @@ class OneSignalClient
         $this->sendNotificationCustom($params);
     }
 
-        public function sendNotificationToTagTwo($message, $tag, $url = null, $data = null, $buttons = null, $schedule = null) {
-        $contents = array(
-            "en" => $message
-        );
-
-        $params = array(
-            'app_id' => $this->appId,
-            'contents' => $contents,
-            'filters' => $tag
-        );
-
-        if (isset($url)) {
-            $params['url'] = $url;
-        }
-
-        if (isset($data)) {
-            $params['data'] = $data;
-        }
-
-        if (isset($button)) {
-            $params['buttons'] = $buttons;
-        }
-
-        if(isset($schedule)){
-            $params['send_after'] = $schedule;
-        }
-        
-        $this->sendNotificationCustom($params);
-    }
-
 //-------------------------------------------------------------------------------------
 
     /**
